@@ -1,0 +1,11 @@
+* {
+  margin: 0 auto;
+  padding: 0%;
+}
+
+.form-wrapper {
+  margin-top: 5em;
+  width: 75vw;
+  height: 100%;
+  display: block;
+}
