@@ -1,0 +1,11 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.menu-header {
+  position: relative;
+  width: 100vw;
+  height: 5vh;
+  background-color: rgb(4, 48, 243);
+}
