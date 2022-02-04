@@ -1,0 +1,19 @@
+* {
+  margin: 0 auto;
+  padding: 0%;
+}
+
+.home-component {
+  background-image: url("./blue-sky.jpg");
+  background-size: cover !important ;
+  width: 100vw;
+  height: 95vh;
+}
+
+.floater {
+  width: 100vw;
+  height: 40vh;
+  border: solid 2px black;
+  filter: opacity(0.1);
+  text-align: center;
+}

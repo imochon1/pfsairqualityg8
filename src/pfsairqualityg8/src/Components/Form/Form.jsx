@@ -7,10 +7,6 @@ import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import countryList from "react-select-country-list";
 
-//recuperar el input data, investigar si manejarlos juntos o independientes
-
-//porque truena el input??
-
 //country selector para pais
 
 const Form = () => {
@@ -18,6 +14,12 @@ const Form = () => {
 
   //Lista de paises
   const options = useMemo(() => countryList().getData(), []);
+
+  //create a function to save the user data
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputObject);
+  };
 
   const changeHandler = (value, key) => {
     setInputObject({
@@ -98,7 +100,9 @@ const Form = () => {
       <br />
       <br />
       <div className="submit">
-        <Button variant="contained">Enviar</Button>
+        <Button variant="contained" onClick={handleSubmit}>
+          Enviar
+        </Button>
       </div>
     </>
   );
