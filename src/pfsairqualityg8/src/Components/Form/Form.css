@@ -4,8 +4,30 @@
 }
 
 .form-wrapper {
-  margin-top: 5em;
-  width: 75vw;
-  height: 100%;
-  display: block;
+  filter: opacity(0.9);
+  margin-top: 2em;
+  margin-left: 20vw;
+  margin-right: 5vw;
+  width: 60vw;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid black;
+}
+
+.form-item {
+  margin-top: 4em;
+  width: 13vw;
+  height: 9vh;
+  background: rgb(74, 166, 252) 100%;
+}
+
+.submit {
+  margin-left: 27em;
+}
+
+.selector {
+  margin-top: 4em;
+  height: 9vh;
+  width: 13vw;
 }
