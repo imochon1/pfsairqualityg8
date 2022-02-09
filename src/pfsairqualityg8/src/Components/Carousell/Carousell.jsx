@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import "./Carousell.css";
 import Carousel from "react-material-ui-carousel";
 
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
 // eslint-disable-next-line no-unused-vars
-function Example(props) {
+const Carousell = (props) => {
   var items = [
     {
       name: "Random Name #1",
@@ -25,19 +26,19 @@ function Example(props) {
       ))}
     </Carousel>
   );
-}
+};
 //props.item.name
-function Item(props) {
+const Item = (props) => {
   const { name, description } = props.item;
 
   return (
-    <Paper>
+    <Paper className="Paper">
       <h2>{name}</h2>
       <p>{description}</p>
 
       <Button className="CheckButton">Check it out!</Button>
     </Paper>
   );
-}
+};
 
-export default Example;
+export default Carousell;

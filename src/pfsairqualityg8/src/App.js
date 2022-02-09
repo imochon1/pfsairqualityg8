@@ -5,14 +5,11 @@ import Header from "./Components/Header/Header";
 import Form from "./Components/Form/Form";
 import HomeComponent from "./Components/Home/HomeComponent";
 
-import Example from "./Components/Carousell";
-
 const App = () => {
   return (
     <>
       <Header />
       <HomeComponent />
-      <Example />
     </>
   );
 };

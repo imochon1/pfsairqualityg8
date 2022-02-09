@@ -1,0 +1,12 @@
+* {
+  margin: 0 auto;
+  padding: 0%;
+}
+
+.Paper {
+  background-color: transparent !important;
+  filter: blur(0px);
+  border: none;
+  height: 10em;
+  text-align: center;
+}
