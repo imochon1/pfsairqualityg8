@@ -1,0 +1,12 @@
+* {
+  margin: 0 auto;
+  padding: 0%;
+}
+
+.card-wrapper {
+  border: solid 1px black;
+  height: 17em;
+  width: 17em;
+  margin-left: 3em;
+  margin-top: 2em;
+}
