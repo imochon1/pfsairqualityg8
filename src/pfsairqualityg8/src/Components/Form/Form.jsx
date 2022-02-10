@@ -15,7 +15,6 @@ const Form = () => {
   //Lista de paises
   const options = useMemo(() => countryList().getData(), []);
 
-  //create a function to save the user data
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputObject);
