@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./cardholder.css";
 
 const CardHolder = () => {
   //pendiente crear estado para la info de la repsuesta
+  const [apiData, setApiData] = useState([]);
 
   const getData = () => {
     axios
@@ -12,7 +13,8 @@ const CardHolder = () => {
         console.log("response data", response.data);
         for (let i = 0; i < response.data.length; i++) {
           // eslint-disable-next-line no-unused-vars
-          let { image, description } = response.data[i];
+          let { image, name } = response.data[i];
+          setApiData(...apiData, { image, name });
         }
       })
       .catch((error) => {
@@ -20,6 +22,7 @@ const CardHolder = () => {
       });
   };
 
+  const { image, name } = apiData;
   /*(function () {
   statements
 })();
@@ -37,8 +40,13 @@ const CardHolder = () => {
     <section className="cards">
       <div className="card-wrapper">
         <div className="card-body">
-          <div>imagen</div>
-          <div>Descripcion{}</div>
+          <div>
+            <img className="card-image" src={image} alt="Rick and Morty" />
+          </div>
+          <div className="card-text">
+            Nombre <br />
+            {name}
+          </div>
         </div>
       </div>
     </section>

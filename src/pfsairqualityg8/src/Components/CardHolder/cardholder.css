@@ -5,8 +5,24 @@
 
 .card-wrapper {
   border: solid 1px black;
-  height: 17em;
-  width: 17em;
+  height: 18.7em;
+  width: 18.7em;
   margin-left: 3em;
   margin-top: 2em;
+}
+
+.card-body {
+  position: relative;
+  z-index: -1;
+}
+
+.card-text {
+  position: absolute;
+  top: 11em;
+  left: 3em;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 1.5em;
+  font-weight: bold;
+  z-index: 1;
 }
