@@ -11,18 +11,13 @@ const CardHolder = () => {
       .get("https://rickandmortyapi.com/api/character/1,183")
       .then((response) => {
         console.log("response data", response.data);
-        for (let i = 0; i < response.data.length; i++) {
-          // eslint-disable-next-line no-unused-vars
-          let { image, name } = response.data[i];
-          setApiData(...apiData, { image, name });
-        }
+        setApiData(response.data);
       })
       .catch((error) => {
         console.log("error", error);
       });
   };
 
-  const { image, name } = apiData;
   /*(function () {
   statements
 })();
@@ -35,20 +30,31 @@ const CardHolder = () => {
     })();
     getData();
   }, []);
-
+  // >{element.name}
   return (
     <section className="cards">
-      <div className="card-wrapper">
-        <div className="card-body">
-          <div>
-            <img className="card-image" src={image} alt="Rick and Morty" />
-          </div>
-          <div className="card-text">
-            Nombre <br />
-            {name}
-          </div>
-        </div>
-      </div>
+      {apiData.map((element, index) => {
+        return (
+          <>
+            <div className="card-wrapper" key={index}>
+              <div className="card-body">
+                <div>
+                  <img
+                    className="card-image"
+                    src={element.image}
+                    alt="Rick and Morty"
+                  />
+                </div>
+                <div className="card-text">
+                  <br />
+                  {element.name}
+                </div>
+              </div>
+            </div>
+            ;
+          </>
+        );
+      })}
     </section>
   );
 };

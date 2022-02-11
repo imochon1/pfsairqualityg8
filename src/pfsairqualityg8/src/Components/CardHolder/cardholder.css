@@ -3,6 +3,11 @@
   padding: 0%;
 }
 
+.cards {
+  display: flex;
+  max-width: fit-content;
+}
+
 .card-wrapper {
   border: solid 1px black;
   height: 18.7em;
