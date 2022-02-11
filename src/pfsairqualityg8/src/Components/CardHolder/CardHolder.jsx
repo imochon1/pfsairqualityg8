@@ -8,7 +8,7 @@ const CardHolder = () => {
 
   const getData = () => {
     axios
-      .get("https://rickandmortyapi.com/api/character/1,183")
+      .get("https://rickandmortyapi.com/api/character/1,183,5")
       .then((response) => {
         console.log("response data", response.data);
         setApiData(response.data);

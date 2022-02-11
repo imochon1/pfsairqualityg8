@@ -6,14 +6,12 @@ import Form from "./Components/Form/Form";
 import HomeComponent from "./Components/Home/HomeComponent";
 // eslint-disable-next-line no-unused-vars
 import Login from "./Components/Login/Login";
-import CardHolder from "./Components/CardHolder/CardHolder";
 
 const App = () => {
   return (
     <>
       <Header />
       <HomeComponent />
-      <CardHolder />
     </>
   );
 };

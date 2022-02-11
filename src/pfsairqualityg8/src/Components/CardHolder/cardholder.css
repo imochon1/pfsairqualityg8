@@ -4,8 +4,11 @@
 }
 
 .cards {
+  max-width: 100vw;
+  margin-left: 2em;
   display: flex;
-  max-width: fit-content;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .card-wrapper {
@@ -18,16 +21,17 @@
 
 .card-body {
   position: relative;
-  z-index: -1;
+  z-index: 1;
 }
 
 .card-text {
   position: absolute;
-  top: 11em;
-  left: 3em;
+  top: 10em;
+  left: 5em;
   transform: translate(-50%, -50%);
   color: black;
   font-size: 1.5em;
   font-weight: bold;
   z-index: 1;
+  text-align: left;
 }
