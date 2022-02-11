@@ -8,7 +8,7 @@ const server = require('http').Server(app);
 app.use(Cors());
 app.use('/health', (req, res) => {
   res.status(200).json({
-    appName: 'API',
+    appName: 'API cvasquez',
     version: process.env.npm_package_version,
     status: 'OK',
   });
