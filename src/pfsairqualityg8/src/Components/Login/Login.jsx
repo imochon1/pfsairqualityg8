@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
+  //const [globalUser, setGlobalUser] = useState({});
 
   const loginHandler = (key, value) => {
     setLoginInfo({
