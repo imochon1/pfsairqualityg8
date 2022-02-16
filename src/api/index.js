@@ -16,6 +16,7 @@ mongoose
 const PORT = process.env.PORT || 5000; // https://help.heroku.com/P1AVPANS/why-is-my-node-js-app-crashing-with-an-r10-error
 const app = express();
 const server = require('http').Server(app);
+const PlantRouter = require("./routes/PlantRouter");
 
 app.use(cors());
 app.use('/health', (req, res) => {
@@ -30,6 +31,9 @@ app.use('/health', (req, res) => {
 app.get("/", (__, res) => {
   res.json({ message: "Backend APi-NOSQL pfsairqualityg8 running " });
 });
+
+app.use("/plants", PlantRouter);
+
 
 server.listen(PORT, (error) => {
   if (error) {
