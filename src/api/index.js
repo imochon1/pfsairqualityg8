@@ -5,10 +5,11 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 
 const config = require("./config");
-console.log("mongo_uri", config.mongo_uri);
+// console.log("mongo_uri", config.mongo_uri);
 
 mongoose
-  .connect(config.mongo_uri)
+  // .connect(config.mongo_uri)
+  .connect(`mongodb+srv://carlosavrelsalvador:VmjpSUC0WhpmF6ph@cluster0.q53vc.mongodb.net/pfsairqualityg8-staging?retryWrites=true&w=majority`)
   .then(() => console.log("Mongo DB connected"))
   .catch(() => console.log("Error in connection"));
 
