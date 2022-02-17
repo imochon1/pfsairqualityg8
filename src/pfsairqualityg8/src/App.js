@@ -5,7 +5,6 @@ import "./App.css";
 // eslint-disable-next-line no-unused-vars
 import Form from "./Components/Form/Form";
 import HomeComponent from "./Components/Home/HomeComponent";
-// eslint-disable-next-line no-unused-vars
 import Login from "./Components/Login/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -13,7 +12,6 @@ const App = () => {
   return (
     <>
       <Router>
-        <h2>Hola</h2>
         <Routes>
           <Route path="/" element={<HomeComponent />} />
           <Route path="form" element={<Form />} />
