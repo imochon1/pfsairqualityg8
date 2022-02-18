@@ -2,13 +2,29 @@
   margin: 0 auto;
   padding: 0%;
 }
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../Home/blue-sky.jpg") !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+}
 
 .login-wrapper {
   text-align: center;
-  border-style: hidden;
+  border: solid 1px black;
   height: 66vh;
   width: 30vw;
+  background-color: transparent;
+  filter: opacity(0.7);
 }
 .login-component {
+  margin-top: 1em;
+}
+
+.registro {
   margin-top: 1em;
 }

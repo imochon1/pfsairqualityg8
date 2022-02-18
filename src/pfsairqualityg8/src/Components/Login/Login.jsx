@@ -27,50 +27,53 @@ const Login = () => {
   return (
     <>
       <Header />
+      <div className="main">
+        <br />
+        <br />
+        <div className="login-wrapper">
+          <div className="login-component">
+            <h1>Login</h1>
 
-      <div className="login-wrapper">
-        <div className="login-component">
-          <h1>Login</h1>
-
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField
-              id="filled-basic"
-              label="email"
-              variant="filled"
-              style={{ marginTop: "2em" }}
-              key="email"
-              onChange={(e) => loginHandler("email", e.target.value)}
-            />
-            <div>
+            <Box
+              component="form"
+              sx={{
+                "& .MuiTextField-root": { m: 1, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
               <TextField
-                required
-                id="outlined-required"
-                label="Password"
-                key="Password"
+                id="filled-basic"
+                label="email"
+                variant="filled"
                 style={{ marginTop: "2em" }}
-                onChange={(e) => loginHandler("password", e.target.value)}
+                key="email"
+                onChange={(e) => loginHandler("email", e.target.value)}
               />
-            </div>
-          </Box>
-        </div>
+              <div>
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Password"
+                  key="Password"
+                  style={{ marginTop: "2em" }}
+                  onChange={(e) => loginHandler("password", e.target.value)}
+                />
+              </div>
+            </Box>
+          </div>
 
-        <Button
-          variant="contained"
-          onClick={(e) => submit(e)}
-          style={{ marginTop: "4em" }}
-        >
-          Ingresar
-        </Button>
-        <Link className="registro" to="/form">
-          Registrate
-        </Link>
+          <Button
+            variant="contained"
+            onClick={(e) => submit(e)}
+            style={{ marginTop: "4em" }}
+          >
+            Ingresar
+          </Button>
+          <div className="registro">
+            <Link to="/form">Registrate</Link>
+          </div>
+        </div>
       </div>
     </>
   );

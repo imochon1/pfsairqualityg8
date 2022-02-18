@@ -31,6 +31,7 @@ const CardHolder = () => {
     getData();
   }, []);
   // >{element.name}
+
   return (
     <section className="cards">
       {apiData.map((element, index) => {
@@ -51,7 +52,6 @@ const CardHolder = () => {
                 </div>
               </div>
             </div>
-            ;
           </>
         );
       })}
