@@ -28,9 +28,8 @@ const CardHolder = () => {
     (function () {
       console.log("Hola");
     })();
-    getData();
+    getData({});
   }, []);
-  // >{element.name}
 
   return (
     <section className="cards">
@@ -41,12 +40,13 @@ const CardHolder = () => {
               <div className="card-body">
                 <div>
                   <img
+                    key={index}
                     className="card-image"
                     src={element.image}
                     alt="Rick and Morty"
                   />
                 </div>
-                <div className="card-text">
+                <div className="card-text" key={index}>
                   <br />
                   {element.name}
                 </div>

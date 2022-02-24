@@ -3,12 +3,10 @@ import "./homecomponent.css";
 import Carousell from "../Carousell/Carousell";
 import CardHolder from "../CardHolder/CardHolder";
 import Testimony from "../Testimony/Testimony";
-import Header from "../Header/Header";
 
 const HomeComponent = () => {
   return (
     <div className="home-component">
-      <Header />
       <Carousell />
       <CardHolder />
       <Testimony />

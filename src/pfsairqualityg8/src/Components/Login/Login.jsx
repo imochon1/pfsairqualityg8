@@ -4,11 +4,22 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import Header from "../Header/Header";
+
+const userArray = [
+  {
+    email: "mail@mail.com",
+    password: "123456",
+  },
+  {
+    email: "mail1@mail.com",
+    password: "123456",
+  },
+];
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
   //const [globalUser, setGlobalUser] = useState({});
+  // const [newUser, setNewUser] = useState({});
 
   const loginHandler = (key, value) => {
     setLoginInfo({
@@ -20,13 +31,24 @@ const Login = () => {
   const submit = (e) => {
     e.preventDefault();
     console.log(loginInfo);
+    if (
+      userArray.filter(
+        (user) =>
+          user.email === loginInfo.email && user.password === loginInfo.password
+      ).length > 0
+    ) {
+      console.log("Login Success");
+
+      window.location.href = "/";
+    } else {
+      console.log("Login Failed");
+    }
   };
 
   useEffect(() => {}, [loginInfo]);
 
   return (
     <>
-      <Header />
       <div className="main">
         <br />
         <br />
@@ -70,6 +92,7 @@ const Login = () => {
           >
             Ingresar
           </Button>
+
           <div className="registro">
             <Link to="/form">Registrate</Link>
           </div>
