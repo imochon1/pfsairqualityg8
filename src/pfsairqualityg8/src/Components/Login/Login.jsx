@@ -3,23 +3,17 @@ import "./Login.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-
-const userArray = [
-  {
-    email: "mail@mail.com",
-    password: "123456",
-  },
-  {
-    email: "mail1@mail.com",
-    password: "123456",
-  },
-];
+import { Link, useNavigate } from "react-router-dom";
+import loginService from "../../Services/authentication";
+import validateEmail from "../../utils/validateEmail";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
-  //const [globalUser, setGlobalUser] = useState({});
-  // const [newUser, setNewUser] = useState({});
+
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+
+  let navigate = useNavigate();
 
   const loginHandler = (key, value) => {
     setLoginInfo({
@@ -30,19 +24,56 @@ const Login = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(loginInfo);
-    if (
-      userArray.filter(
-        (user) =>
-          user.email === loginInfo.email && user.password === loginInfo.password
-      ).length > 0
-    ) {
-      console.log("Login Success");
 
-      window.location.href = "/";
-    } else {
-      console.log("Login Failed");
+    console.log("HEY ", loginInfo);
+
+    if (Object.keys(loginInfo).length == 0) {
+      setErrorEmail(true);
+      setErrorPassword(true);
+
+      console.log(loginInfo);
+      return; //hasta aqui funciona
     }
+
+    if (loginInfo.email?.length === 0) {
+      console.log("email vacio");
+      setErrorEmail(true);
+      setErrorPassword(false);
+      return;
+    }
+    console.log(loginInfo.password === undefined);
+    if (loginInfo.password == undefined || loginInfo.password?.length == 0) {
+      console.log("Contraseña Vacia");
+      setErrorEmail(false);
+      setErrorPassword(true);
+      return;
+    }
+
+    /** Se valida el email*/
+    const emailValidation = validateEmail(loginInfo.email);
+    if (!emailValidation) {
+      setErrorEmail(true);
+      console.log("email con formato incorrecto", loginInfo.email);
+      return;
+    }
+
+    // cuando uno de los campos se ecnuetre vacio se pone en false
+
+    //verificar rutas/nombres de tablas y campos
+    //metodo some
+
+    //Authenticator.loginSErvice(logininfo.mail y logininfo.password)
+
+    loginService(loginInfo)
+      .then((isValid) => {
+        console.log("login info data", isValid);
+        if (isValid === true) {
+          return navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log("login info error", err);
+      });
   };
 
   useEffect(() => {}, [loginInfo]);
@@ -65,6 +96,8 @@ const Login = () => {
               autoComplete="off"
             >
               <TextField
+                error={errorEmail}
+                helperText={errorEmail ? "Ingresa tu Mail" : ""}
                 id="filled-basic"
                 label="email"
                 variant="filled"
@@ -74,6 +107,10 @@ const Login = () => {
               />
               <div>
                 <TextField
+                  error={errorPassword}
+                  helperText={errorPassword ? "Contraseña incorrecta" : ""}
+                  variant="filled"
+                  type="password"
                   required
                   id="outlined-required"
                   label="Password"

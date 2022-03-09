@@ -3,7 +3,6 @@ import axios from "axios";
 import "./cardholder.css";
 
 const CardHolder = () => {
-  //pendiente crear estado para la info de la repsuesta
   const [apiData, setApiData] = useState([]);
 
   const getData = () => {
