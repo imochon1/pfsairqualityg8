@@ -25,12 +25,43 @@ const Form = () => {
   const [inputErrorConfirmPassword, setInputErrorConfirmPassword] =
     useState(false);
 
+  // eslint-disable-next-line no-unused-vars
+  const [hover, setHover] = useState();
+
+  const mouseIn = () => {
+    setHover(true);
+  };
+
+  const mouseOut = () => {
+    setHover(false);
+  };
+
   const errorArray = [
     "Ingresa tu nombre",
     "Ingresa tu Apellido",
     "Ingresa tu Email",
     "Ingresa tu Password",
     "Verifica tu Password",
+  ];
+
+  // eslint-disable-next-line no-unused-vars
+  const countriesArray = [
+    "Mexico",
+    "El Salvador",
+    "Peru",
+    "Guatemala",
+    "Estados Unidos",
+    "Argentina",
+    "España",
+    "Brazil",
+    "Argentina",
+    "Singapur",
+    "Canada",
+    "Honduras",
+    "Chile",
+    "España",
+    "Francia",
+    "Italia",
   ];
 
   //Lista de paises
@@ -106,6 +137,7 @@ const Form = () => {
       <section className="body">
         <div className="form-wrapper">
           <Box className="form-item" id="nombre">
+            <h4>Ingresa tu Nombre</h4>
             <TextField
               error={inputErrorNombre}
               helperText={inputErrorNombre ? errorArray[0] : ""}
@@ -118,6 +150,7 @@ const Form = () => {
           </Box>
 
           <Box className="form-item">
+            <h4>Ingresa tu Apellido</h4>
             <TextField
               error={inputErrorApellido}
               helperText={inputErrorApellido ? errorArray[1] : ""}
@@ -129,6 +162,7 @@ const Form = () => {
             />
           </Box>
           <Box className="form-item">
+            <h4>Ingresa tu Email</h4>
             <TextField
               error={inputErrorEmail}
               helperText={inputErrorEmail ? errorArray[2] : ""}
@@ -140,6 +174,7 @@ const Form = () => {
             />
           </Box>
           <Box className="form-item">
+            <h4>Ingresa tu Clave</h4>
             <TextField
               error={inputErrorPassword}
               helperText={inputErrorPassword ? errorArray[3] : ""}
@@ -152,6 +187,7 @@ const Form = () => {
             />
           </Box>
           <Box className="form-item">
+            <h4>Confirma clave</h4>
             <TextField
               error={inputErrorConfirmPassword}
               helperText={inputErrorConfirmPassword ? errorArray[4] : ""}
@@ -182,8 +218,13 @@ const Form = () => {
         <br />
         <br />
         <div className="submit">
-          <Button variant="contained" onClick={handleSubmit}>
-            Enviar
+          <Button
+            className="button"
+            onClick={handleSubmit}
+            onMouseOver={mouseIn}
+            onMouseOut={mouseOut}
+          >
+            {mouseIn ? "Enviar" : ""}
           </Button>
         </div>
       </section>
