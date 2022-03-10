@@ -7,14 +7,15 @@ const Header = () => {
   return (
     <div className="menu-header">
       <div className="menu-items">
-        <Link to="/">
+        <Link to="/" style={{ textDecoration: "none" }}>
           <h3> Home </h3>
         </Link>
-        <Link to="/login">
+        <Link to="/login" style={{ textDecoration: "none" }}>
           <h3> Login </h3>
         </Link>
-
-        <PersonIcon className="icon" />
+        <div className="icon-wrapper">
+          <PersonIcon className="icon" />
+        </div>
       </div>
     </div>
   );
