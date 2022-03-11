@@ -11,6 +11,8 @@ import countryList from "react-select-country-list";
 
 //country selector para pais falta
 
+//  rutas,estilos,arreglar alerts,validaciones mail. fotos para header  //
+
 const Form = () => {
   const [inputObject, setInputObject] = useState({});
 
@@ -83,6 +85,7 @@ const Form = () => {
       return;
     } else if (inputObject.nombre?.length === 0) {
       setInputErrorNombre(true);
+
       console.log("nombre");
 
       return;
@@ -101,6 +104,11 @@ const Form = () => {
     } else if (inputObject.confirmPassword?.length === 0) {
       setInputErrorConfirmPassword(true);
       console.log("pass");
+
+      return;
+    } else if (inputObject.password !== inputObject.confirmPassword) {
+      setInputErrorConfirmPassword(true);
+      alert("Las contraseñas no coinciden");
       return;
     } else {
       alert("Formulario enviado");
@@ -133,99 +141,106 @@ const Form = () => {
 
   return (
     <>
-      <div className="top-bar"> Ingresa tus datos Y Registrate! </div>
       <section className="body">
+        <br />
+        <br />
         <div className="form-wrapper">
-          <Box className="form-item" id="nombre">
-            <h4>Ingresa tu Nombre</h4>
-            <TextField
-              error={inputErrorNombre}
-              helperText={inputErrorNombre ? errorArray[0] : ""}
-              id="outlined-textarea"
-              label="Nombre"
-              placeholder="Placeholder"
-              multiline
-              onChange={(e) => changeHandler(e.target.value, "nombre")}
-            />
-          </Box>
-
-          <Box className="form-item">
-            <h4>Ingresa tu Apellido</h4>
-            <TextField
-              error={inputErrorApellido}
-              helperText={inputErrorApellido ? errorArray[1] : ""}
-              id="outlined-textarea"
-              label="Apellido"
-              placeholder="Placeholder"
-              multiline
-              onChange={(e) => changeHandler(e.target.value, "apellido")}
-            />
-          </Box>
-          <Box className="form-item">
-            <h4>Ingresa tu Email</h4>
-            <TextField
-              error={inputErrorEmail}
-              helperText={inputErrorEmail ? errorArray[2] : ""}
-              id="outlined-textarea"
-              label="Email"
-              placeholder="Placeholder"
-              multiline
-              onChange={(e) => changeHandler(e.target.value, "email")}
-            />
-          </Box>
-          <Box className="form-item">
-            <h4>Ingresa tu Clave</h4>
-            <TextField
-              error={inputErrorPassword}
-              helperText={inputErrorPassword ? errorArray[3] : ""}
-              type="password"
-              id="outlined-textarea"
-              label="Password"
-              placeholder="Placeholder"
-              multiline
-              onChange={(e) => changeHandler(e.target.value, "password")}
-            />
-          </Box>
-          <Box className="form-item">
-            <h4>Confirma clave</h4>
-            <TextField
-              error={inputErrorConfirmPassword}
-              helperText={inputErrorConfirmPassword ? errorArray[4] : ""}
-              type="password"
-              id="outlined-textarea"
-              label="Confirmar Password"
-              placeholder="Placeholder"
-              multiline
-              onChange={(e) => changeHandler(e.target.value, "confirmPassword")}
-            />
-          </Box>
-
-          <Select
-            className="selector"
-            options={options}
-            value={inputObject.selector || ""} //cambiar el nombre de el estado value
-            onChange={(e) => changeHandler(e.target.value, "selector")}
-          >
+          <div className="top-bar" style={{ textAlign: "center" }}>
             {" "}
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </div>
-        <br />
-        <br />
-        <div className="submit">
-          <Button
-            className="button"
-            onClick={handleSubmit}
-            onMouseOver={mouseIn}
-            onMouseOut={mouseOut}
-          >
-            {mouseIn ? "Enviar" : ""}
-          </Button>
+            Ingresa tus datos Y Registrate!{" "}
+          </div>
+          <br />
+          <div className="grid">
+            <Box className="form-item" id="nombre">
+              <h4>Ingresa tu Nombre</h4>
+              <TextField
+                error={inputErrorNombre}
+                helperText={inputErrorNombre ? errorArray[0] : ""}
+                id="outlined-textarea"
+                label="Nombre"
+                placeholder="Placeholder"
+                multiline
+                onChange={(e) => changeHandler(e.target.value, "nombre")}
+              />
+            </Box>
+
+            <Box className="form-item">
+              <h4>Ingresa tu Apellido</h4>
+              <TextField
+                error={inputErrorApellido}
+                helperText={inputErrorApellido ? errorArray[1] : ""}
+                id="outlined-textarea"
+                label="Apellido"
+                placeholder="Placeholder"
+                multiline
+                onChange={(e) => changeHandler(e.target.value, "apellido")}
+              />
+            </Box>
+            <Box className="form-item">
+              <h4>Ingresa tu Email</h4>
+              <TextField
+                error={inputErrorEmail}
+                helperText={inputErrorEmail ? errorArray[2] : ""}
+                id="outlined-textarea"
+                label="Email"
+                placeholder="Placeholder"
+                multiline
+                onChange={(e) => changeHandler(e.target.value, "email")}
+              />
+            </Box>
+            <Box className="form-item">
+              <h4>Ingresa tu Clave</h4>
+              <TextField
+                error={inputErrorPassword}
+                helperText={inputErrorPassword ? errorArray[3] : ""}
+                type="password"
+                id="outlined-textarea"
+                label="Password"
+                placeholder="Placeholder"
+                multiline
+                onChange={(e) => changeHandler(e.target.value, "password")}
+              />
+            </Box>
+            <Box className="form-item">
+              <h4>Confirma clave</h4>
+              <TextField
+                error={inputErrorConfirmPassword}
+                helperText={inputErrorConfirmPassword ? errorArray[4] : ""}
+                type="password"
+                id="outlined-textarea"
+                label="Confirmar Password"
+                placeholder="Placeholder"
+                multiline
+                onChange={(e) =>
+                  changeHandler(e.target.value, "confirmPassword")
+                }
+              />
+            </Box>
+
+            <Select
+              className="selector"
+              options={options}
+              value={inputObject.selector || ""} //cambiar el nombre de el estado value
+              onChange={(e) => changeHandler(e.target.value, "selector")}
+            >
+              {" "}
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </div>
+          <div className="submit">
+            <Button
+              onClick={handleSubmit}
+              onMouseOver={mouseIn}
+              onMouseOut={mouseOut}
+            >
+              {mouseIn ? "Enviar" : ""}
+            </Button>
+          </div>
         </div>
       </section>
     </>

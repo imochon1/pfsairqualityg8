@@ -68,7 +68,7 @@ const Login = () => {
       .then((isValid) => {
         console.log("login info data", isValid);
         if (isValid === true) {
-          return navigate("/");
+          return navigate("/home");
         }
       })
       .catch((err) => {
