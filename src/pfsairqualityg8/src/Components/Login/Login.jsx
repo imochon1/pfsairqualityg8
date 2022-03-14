@@ -82,6 +82,10 @@ const Login = () => {
     <>
       <div className="main">
         <br />
+        <section className="banner-info">
+          <h2>Mejora Tu Aire. Mejora Tu Vida</h2>
+        </section>
+        <br />
         <br />
         <div className="login-wrapper">
           <div className="login-component">
@@ -131,7 +135,9 @@ const Login = () => {
           </Button>
 
           <div className="registro">
-            <Link to="/form">Registrate</Link>
+            <Link to="/form" style={{ textDecoration: "none", color: "white" }}>
+              Registrate
+            </Link>
           </div>
         </div>
       </div>

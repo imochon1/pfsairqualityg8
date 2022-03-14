@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import countryList from "react-select-country-list";
-//import validateEmail from "../../utils/validateEmail";
+import validateEmail from "../../utils/validateEmail";
 //import userService from "../../Services/userService";
 
 //country selector para pais falta
@@ -48,22 +48,22 @@ const Form = () => {
 
   // eslint-disable-next-line no-unused-vars
   const countriesArray = [
-    "Mexico",
-    "El Salvador",
-    "Peru",
-    "Guatemala",
-    "Estados Unidos",
-    "Argentina",
-    "España",
-    "Brazil",
-    "Argentina",
-    "Singapur",
-    "Canada",
-    "Honduras",
-    "Chile",
-    "España",
-    "Francia",
-    "Italia",
+    { Nombre: "Mexico" },
+    { Nombre: "El Salvador" },
+    { Nombre: "Peru" },
+    { Nombre: "Guatemala" },
+    { Nombre: "Estados Unidos" },
+    { Nombre: "Argentina" },
+    { Nombre: "España" },
+    { Nombre: "Brazil" },
+    { Nombre: "Argentina" },
+    { Nombre: "Singapur" },
+    { Nombre: "Canada" },
+    { Nombre: "Honduras" },
+    { Nombre: "Chile" },
+    { Nombre: "España" },
+    { Nombre: "Francia" },
+    { Nombre: "Italia" },
   ];
 
   //Lista de paises
@@ -85,24 +85,57 @@ const Form = () => {
       return;
     } else if (inputObject.nombre?.length === 0) {
       setInputErrorNombre(true);
+      setInputErrorApellido(false);
+      setInputErrorEmail(false);
+      setInputErrorPassword(false);
+      setInputErrorConfirmPassword(false);
 
       console.log("nombre");
 
       return;
     } else if (inputObject.apellido?.length === 0) {
       setInputErrorApellido(true);
+      setInputErrorNombre(false);
+      setInputErrorEmail(false);
+      setInputErrorPassword(false);
+      setInputErrorConfirmPassword(false);
       console.log("Apellido");
       return;
-    } else if (inputObject.email?.length === 0) {
+    } else if (
+      inputObject.email?.length === 0 ||
+      !validateEmail(inputObject.email)
+    ) {
       setInputErrorEmail(true);
+      setInputErrorNombre(false);
+      setInputErrorApellido(false);
+      setInputErrorPassword(false);
+      setInputErrorConfirmPassword(false);
+      alert("Email invalido");
+      console.log("email con formato incorrecto", inputObject.email);
+
       console.log("mail");
       return;
-    } else if (inputObject.password?.length === 0) {
+    } else if (
+      inputObject.password?.length === 0 ||
+      inputObject.password.length < 6
+    ) {
       setInputErrorPassword(true);
+      setInputErrorNombre(false);
+      setInputErrorApellido(false);
+      setInputErrorEmail(false);
+      setInputErrorConfirmPassword(false);
       console.log("pass");
       return;
-    } else if (inputObject.confirmPassword?.length === 0) {
+    } else if (
+      inputObject.confirmPassword?.length === 0 ||
+      inputObject.confirmPassword.length < 6
+    ) {
       setInputErrorConfirmPassword(true);
+      setInputErrorNombre(false);
+      setInputErrorApellido(false);
+      setInputErrorEmail(false);
+      setInputErrorPassword(false);
+
       console.log("pass");
 
       return;
@@ -227,7 +260,9 @@ const Form = () => {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={10}>
+                <em>Ten</em>
+              </MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
