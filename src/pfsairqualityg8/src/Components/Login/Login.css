@@ -11,19 +11,16 @@
   -o-background-size: cover;
   background-size: cover;
   position: relative;
-  z-index: -1;
 }
 
 .login-wrapper {
   margin-top: 2em;
   text-align: center;
   border: solid 1px transparent;
-
   height: 66vh;
   width: 30vw;
   background-color: transparent;
   filter: opacity(0.7);
-  z-index: 1;
 }
 
 .login-component {

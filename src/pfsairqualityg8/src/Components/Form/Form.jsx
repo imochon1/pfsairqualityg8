@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import countryList from "react-select-country-list";
 import validateEmail from "../../utils/validateEmail";
+import Alert from "@mui/material/Alert";
 //import userService from "../../Services/userService";
 
 //country selector para pais falta
@@ -46,24 +47,24 @@ const Form = () => {
     "Verifica tu Password",
   ];
 
-  // eslint-disable-next-line no-unused-vars
+  // enlint-disable-next-line no-unused-vars
   const countriesArray = [
-    { Nombre: "Mexico" },
-    { Nombre: "El Salvador" },
-    { Nombre: "Peru" },
-    { Nombre: "Guatemala" },
-    { Nombre: "Estados Unidos" },
-    { Nombre: "Argentina" },
-    { Nombre: "España" },
-    { Nombre: "Brazil" },
-    { Nombre: "Argentina" },
-    { Nombre: "Singapur" },
-    { Nombre: "Canada" },
-    { Nombre: "Honduras" },
-    { Nombre: "Chile" },
-    { Nombre: "España" },
-    { Nombre: "Francia" },
-    { Nombre: "Italia" },
+    { nombre: "Mexico" },
+    { nombre: "El Salvador" },
+    { nombre: "Peru" },
+    { nombre: "Guatemala" },
+    { nombre: "Estados Unidos" },
+    { nombre: "Argentina" },
+    { nombre: "España" },
+    { nombre: "Brazil" },
+    { nombre: "Argentina" },
+    { nombre: "Singapur" },
+    { nombre: "Canada" },
+    { nombre: "Honduras" },
+    { nombre: "Chile" },
+    { nombre: "España" },
+    { nombre: "Francia" },
+    { nombre: "Italia" },
   ];
 
   //Lista de paises
@@ -185,7 +186,6 @@ const Form = () => {
           <br />
           <div className="grid">
             <Box className="form-item" id="nombre">
-              <h4>Ingresa tu Nombre</h4>
               <TextField
                 error={inputErrorNombre}
                 helperText={inputErrorNombre ? errorArray[0] : ""}
@@ -195,10 +195,10 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "nombre")}
               />
+              {inputErrorNombre ? <Alert severity="error" /> : <></>}
             </Box>
 
             <Box className="form-item">
-              <h4>Ingresa tu Apellido</h4>
               <TextField
                 error={inputErrorApellido}
                 helperText={inputErrorApellido ? errorArray[1] : ""}
@@ -208,9 +208,9 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "apellido")}
               />
+              {inputErrorApellido ? <Alert severity="error" /> : <></>}
             </Box>
             <Box className="form-item">
-              <h4>Ingresa tu Email</h4>
               <TextField
                 error={inputErrorEmail}
                 helperText={inputErrorEmail ? errorArray[2] : ""}
@@ -220,9 +220,10 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "email")}
               />
+
+              {inputErrorEmail ? <Alert severity="error" /> : <></>}
             </Box>
             <Box className="form-item">
-              <h4>Ingresa tu Clave</h4>
               <TextField
                 error={inputErrorPassword}
                 helperText={inputErrorPassword ? errorArray[3] : ""}
@@ -233,9 +234,10 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "password")}
               />
+
+              {inputErrorPassword ? <Alert severity="error" /> : <></>}
             </Box>
             <Box className="form-item">
-              <h4>Confirma clave</h4>
               <TextField
                 error={inputErrorConfirmPassword}
                 helperText={inputErrorConfirmPassword ? errorArray[4] : ""}
@@ -248,6 +250,7 @@ const Form = () => {
                   changeHandler(e.target.value, "confirmPassword")
                 }
               />
+              {inputErrorConfirmPassword ? <Alert severity="error" /> : <></>}
             </Box>
 
             <Select
@@ -256,15 +259,11 @@ const Form = () => {
               value={inputObject.selector || ""} //cambiar el nombre de el estado value
               onChange={(e) => changeHandler(e.target.value, "selector")}
             >
-              {" "}
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>
-                <em>Ten</em>
-              </MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {countriesArray.map((country, index) => (
+                <MenuItem value={country.nombre} key={index}>
+                  {country.nombre}
+                </MenuItem>
+              ))}
             </Select>
           </div>
           <div className="submit">

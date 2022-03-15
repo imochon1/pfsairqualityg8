@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Login.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import loginService from "../../Services/authentication";
 import validateEmail from "../../utils/validateEmail";
+import validatePassword from "../../utils/passwordFormat";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
@@ -39,6 +41,7 @@ const Login = () => {
       console.log("email vacio");
       setErrorEmail(true);
       setErrorPassword(false);
+
       return;
     }
     console.log(loginInfo.password === undefined);
@@ -57,18 +60,35 @@ const Login = () => {
       return;
     }
 
-    // cuando uno de los campos se ecnuetre vacio se pone en false
+    const passwordFormatValidator = validatePassword(loginInfo.password);
+    if (!passwordFormatValidator) {
+      setErrorPassword(true);
+      console.log(
+        "Tu password debe de ser tener 6 carateres y uno especial",
+        loginInfo.password
+      );
+      return;
+    }
 
-    //verificar rutas/nombres de tablas y campos
-    //metodo some
+    const confirmPasswordValidator = validatePassword(
+      loginInfo.confirmPassword
+    );
+    if (!confirmPasswordValidator) {
+      setErrorPassword(true);
+      console.log("password con formato incorrecto", loginInfo.confirmPassword);
+      return;
+    }
 
-    //Authenticator.loginSErvice(logininfo.mail y logininfo.password)
+    //
 
     loginService(loginInfo)
       .then((isValid) => {
         console.log("login info data", isValid);
         if (isValid === true) {
           return navigate("/home");
+        } else {
+          alert("Usuario o contraseña incorrectos");
+          return navigate("/login");
         }
       })
       .catch((err) => {
@@ -77,6 +97,23 @@ const Login = () => {
   };
 
   useEffect(() => {}, [loginInfo]);
+
+  const styleRef = useRef(null);
+
+  const hoverHandler = (e) => {
+    e.preventDefault();
+    console.log(styleRef.current);
+    styleRef.current.borderColor = "white";
+    styleRef.current.backgroundColor = "white";
+    styleRef.current.color = "black";
+  };
+
+  const leaveHover = (e) => {
+    e.preventDefault();
+    styleRef.current.borderColor = "transparent";
+    styleRef.current.backgroundColor = "transparent";
+    styleRef.current.color = "white";
+  };
 
   return (
     <>
@@ -87,7 +124,12 @@ const Login = () => {
         </section>
         <br />
         <br />
-        <div className="login-wrapper">
+        <div
+          className="login-wrapper"
+          ref={styleRef}
+          onMouseEnter={(e) => hoverHandler(e)}
+          onMouseOut={(e) => leaveHover(e)}
+        >
           <div className="login-component">
             <h1>Login</h1>
 
@@ -109,6 +151,13 @@ const Login = () => {
                 key="email"
                 onChange={(e) => loginHandler("email", e.target.value)}
               />
+              {errorEmail ? (
+                <Alert severity="error">
+                  <strong>Error:</strong> Ingresa tu email
+                </Alert>
+              ) : (
+                <></>
+              )}
               <div>
                 <TextField
                   error={errorPassword}
@@ -122,6 +171,13 @@ const Login = () => {
                   style={{ marginTop: "2em" }}
                   onChange={(e) => loginHandler("password", e.target.value)}
                 />
+                {errorPassword ? (
+                  <Alert severity="error">
+                    <strong>Error:</strong> Ingresa tu Password
+                  </Alert>
+                ) : (
+                  <></>
+                )}
               </div>
             </Box>
           </div>

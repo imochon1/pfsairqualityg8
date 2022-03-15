@@ -6,11 +6,11 @@ const loginService = (userInfo) => {
   const userArray = [
     {
       email: "mail@mail.com",
-      password: "123456",
+      password: "123456!",
     },
     {
       email: "mail1@mail.com",
-      password: "123456",
+      password: "123456!",
     },
   ];
 

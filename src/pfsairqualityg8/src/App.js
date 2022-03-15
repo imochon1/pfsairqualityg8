@@ -9,6 +9,8 @@ import Login from "./Components/Login/Login";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+//pendiente RUTAS
+
 const App = () => {
   return (
     <>
