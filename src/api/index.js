@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 5000; // https://help.heroku.com/P1AVPANS/why-i
 const app = express();
 const server = require('http').Server(app);
 const PlantRouter = require("./routes/PlantRouter");
+const UserRouter = require("./routes/UserRouter");
 
 app.use(cors());
 app.use('/health', (req, res) => {
@@ -33,6 +34,8 @@ app.get("/", (__, res) => {
 });
 
 app.use("/plants", PlantRouter);
+
+app.use("/users", UserRouter);
 
 
 server.listen(PORT, (error) => {
