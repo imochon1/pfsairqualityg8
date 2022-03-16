@@ -29,15 +29,6 @@ const Form = () => {
     useState(false);
 
   // eslint-disable-next-line no-unused-vars
-  const [hover, setHover] = useState();
-
-  const mouseIn = () => {
-    setHover(true);
-  };
-
-  const mouseOut = () => {
-    setHover(false);
-  };
 
   const errorArray = [
     "Ingresa tu nombre",
@@ -73,7 +64,7 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputObject);
-
+    ///Revisa la validacion
     const inputValuesArray = Object.values(inputObject);
     const filteredArray = inputValuesArray.filter((input) => input !== "");
     if (filteredArray.length === 0) {
@@ -84,7 +75,7 @@ const Form = () => {
       setInputErrorConfirmPassword(true);
 
       return;
-    } else if (inputObject.nombre?.length === 0) {
+    } else if (!inputObject.nombre) {
       setInputErrorNombre(true);
       setInputErrorApellido(false);
       setInputErrorEmail(false);
@@ -95,47 +86,44 @@ const Form = () => {
 
       return;
     } else if (inputObject.apellido?.length === 0) {
-      setInputErrorApellido(true);
       setInputErrorNombre(false);
+      setInputErrorApellido(true);
       setInputErrorEmail(false);
       setInputErrorPassword(false);
       setInputErrorConfirmPassword(false);
       console.log("Apellido");
       return;
-    } else if (
-      inputObject.email?.length === 0 ||
-      !validateEmail(inputObject.email)
-    ) {
-      setInputErrorEmail(true);
+    } else if (inputObject.email?.length === 0) {
       setInputErrorNombre(false);
       setInputErrorApellido(false);
+      setInputErrorEmail(true);
       setInputErrorPassword(false);
       setInputErrorConfirmPassword(false);
       alert("Email invalido");
+      !validateEmail(inputObject.email);
       console.log("email con formato incorrecto", inputObject.email);
-
       console.log("mail");
       return;
     } else if (
       inputObject.password?.length === 0 ||
-      inputObject.password.length < 6
+      inputObject.password?.length < 6
     ) {
-      setInputErrorPassword(true);
       setInputErrorNombre(false);
       setInputErrorApellido(false);
       setInputErrorEmail(false);
+      setInputErrorPassword(true);
       setInputErrorConfirmPassword(false);
       console.log("pass");
       return;
     } else if (
       inputObject.confirmPassword?.length === 0 ||
-      inputObject.confirmPassword.length < 6
+      inputObject.confirmPassword?.length < 6
     ) {
-      setInputErrorConfirmPassword(true);
       setInputErrorNombre(false);
       setInputErrorApellido(false);
       setInputErrorEmail(false);
       setInputErrorPassword(false);
+      setInputErrorConfirmPassword(true);
 
       console.log("pass");
 
@@ -195,7 +183,6 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "nombre")}
               />
-              {inputErrorNombre ? <Alert severity="error" /> : <></>}
             </Box>
 
             <Box className="form-item">
@@ -208,7 +195,6 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "apellido")}
               />
-              {inputErrorApellido ? <Alert severity="error" /> : <></>}
             </Box>
             <Box className="form-item">
               <TextField
@@ -220,8 +206,6 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "email")}
               />
-
-              {inputErrorEmail ? <Alert severity="error" /> : <></>}
             </Box>
             <Box className="form-item">
               <TextField
@@ -234,8 +218,6 @@ const Form = () => {
                 multiline
                 onChange={(e) => changeHandler(e.target.value, "password")}
               />
-
-              {inputErrorPassword ? <Alert severity="error" /> : <></>}
             </Box>
             <Box className="form-item">
               <TextField
@@ -250,7 +232,6 @@ const Form = () => {
                   changeHandler(e.target.value, "confirmPassword")
                 }
               />
-              {inputErrorConfirmPassword ? <Alert severity="error" /> : <></>}
             </Box>
 
             <Select
@@ -259,6 +240,12 @@ const Form = () => {
               value={inputObject.selector || ""} //cambiar el nombre de el estado value
               onChange={(e) => changeHandler(e.target.value, "selector")}
             >
+              {" "}
+              {inputObject.selector === "" ? (
+                <Alert severity="error">Selecciona Tu Pais</Alert>
+              ) : (
+                <h4>Selecciona tu pais</h4>
+              )}
               {countriesArray.map((country, index) => (
                 <MenuItem value={country.nombre} key={index}>
                   {country.nombre}
@@ -266,14 +253,24 @@ const Form = () => {
               ))}
             </Select>
           </div>
+          {(inputErrorNombre && (
+            <Alert severity="error">{errorArray[0]} </Alert>
+          )) ||
+            (inputErrorApellido && (
+              <Alert severity="error">{errorArray[1]} </Alert>
+            )) ||
+            (inputErrorEmail && (
+              <Alert severity="error">{errorArray[2]} </Alert>
+            )) ||
+            (inputErrorPassword && (
+              <Alert severity="error">{errorArray[3]} </Alert>
+            )) ||
+            (inputErrorConfirmPassword && (
+              <Alert severity="error">{errorArray[4]} </Alert>
+            ))}
+
           <div className="submit">
-            <Button
-              onClick={handleSubmit}
-              onMouseOver={mouseIn}
-              onMouseOut={mouseOut}
-            >
-              {mouseIn ? "Enviar" : ""}
-            </Button>
+            <Button onClick={handleSubmit}>Enviar</Button>
           </div>
         </div>
       </section>
