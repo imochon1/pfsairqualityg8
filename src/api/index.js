@@ -37,7 +37,6 @@ app.use("/plants", PlantRouter);
 
 app.use("/users", UserRouter);
 
-
 server.listen(PORT, (error) => {
   if (error) {
     console.log(`

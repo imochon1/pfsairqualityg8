@@ -12,11 +12,6 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
   },
-  age: {
-    type: Number,
-    min: [18, "You're need to be older"],
-    max: 99,
-  },
   role: {
     type: String,
     default: "USER",
@@ -25,10 +20,6 @@ const UserSchema = new Schema({
   is_active: {
     type: Boolean,
     default: true,
-  },
-  profile_picture: {
-    type: String,
-    // default: "../developer.jpeg",
   },
 });
 

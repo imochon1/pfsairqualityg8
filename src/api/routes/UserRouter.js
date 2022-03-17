@@ -8,7 +8,10 @@ const router = express.Router();
 //FIND ALL
 router.get("/", UserController.findAll);
 
-//FIND ONE
+// CREATE
+router.post("/", UserController.create);
+
+  //FIND ONE
 router.get("/:idUser", UserController.findOneById);
 
 // UPDATE  ONE  || BULK [id1, id2, id3 ], price: 80000
