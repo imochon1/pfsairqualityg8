@@ -3,14 +3,14 @@ const { Schema } = mongoose;
 
 // Se definen aqui los campos de nuesra tabla (Collection)
 const UserSchema = new Schema({
-  name: String, // short hand
+  name: {
+    type: String
+  }, // short hand
   last_name: {
-    type: String,
-    required: true,
+    type: String
   },
   email: {
-    type: String,
-    unique: true,
+    type: String
   },
   role: {
     type: String,

@@ -18,7 +18,11 @@ module.exports = {
 
   create: async (req, res) => {
     try {
+      console.log("process.env => ",process.env.NODE_ENV)
+      console.log("req.body = ", req.body)
+      // console.log("User = ", User)
       const newUser = await User.create(req.body);
+      console.log("newUser", newUser)
       res.status(201).json({
         message: "User created sucessfully",
         user: newUser,

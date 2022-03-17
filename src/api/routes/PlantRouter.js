@@ -7,6 +7,6 @@ const router = express.Router();
 
 //FIND ALL
 router.get("/", PlantController.findAll);
-
+router.post("/", PlantController.Create)
 
 module.exports = router;
