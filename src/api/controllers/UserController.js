@@ -57,6 +57,28 @@ module.exports = {
     }
   },
 
+  findOneByEmail: async (req, res) => {
+    const { email } = req.params;
+
+    try {
+      const userFound = await User.findOne({ email: email });
+      if (!userFound) {
+        res.status(404).json({ message: "User not found or inactive" });
+      } else {
+        res.status(200).json({
+          message: "User found ",
+          user: userFound,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Error user not found",
+        error,
+      });
+    }
+  },
+
   updateOneById: async (req, res) => {
     const id = req.params.idUser;
 

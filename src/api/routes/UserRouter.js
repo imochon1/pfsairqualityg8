@@ -14,6 +14,9 @@ router.post("/", UserController.create);
   //FIND ONE
 router.get("/:idUser", UserController.findOneById);
 
+// FIND Email
+router.get("/email/:email", UserController.findOneByEmail);
+
 // UPDATE  ONE  || BULK [id1, id2, id3 ], price: 80000
 router.patch("/:idUser", UserController.updateOneById);
 
