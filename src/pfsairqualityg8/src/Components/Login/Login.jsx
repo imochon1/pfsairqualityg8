@@ -5,11 +5,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { Link, useNavigate } from "react-router-dom";
-//import PropTypes from "prop-types";
+
 import loginService from "../../Services/authentication";
 import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/passwordFormat";
-//import { UserContext } from "../../utils/UserContext";
+import { userLogin } from "../../Services/userService";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
@@ -92,6 +92,7 @@ const Login = () => {
       .catch((err) => {
         console.log("login info error", err);
       });
+    userLogin(loginInfo);
   };
   useEffect(() => {}, [loginInfo]);
 

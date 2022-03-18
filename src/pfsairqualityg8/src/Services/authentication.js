@@ -1,6 +1,7 @@
-//const axios = require("axios").default;
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 
-//crear servicio de verificacion, post y authenticati
+const axios = require("axios").default;
 
 ////Authenticator.loginSErvice(logininfo.mail y logininfo.password)
 
