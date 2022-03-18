@@ -1,16 +1,17 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Form.css";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
-import countryList from "react-select-country-list";
-import validateEmail from "../../utils/validateEmail";
-import Alert from "@mui/material/Alert";
-//import userService from "../../Services/userService";
 
-//country selector para pais falta
+import validateEmail from "../../utils/validateEmail";
+
+import Alert from "@mui/material/Alert";
+import { Link } from "react-router-dom";
+import validatePassword from "../../utils/passwordFormat";
+import { createUser } from "../../Services/userService";
 
 //  rutas,estilos,arreglar alerts,validaciones mail. fotos para header  //
 
@@ -58,15 +59,13 @@ const Form = () => {
     { nombre: "Italia" },
   ];
 
-  //Lista de paises
-  const options = useMemo(() => countryList().getData(), []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputObject);
     ///Revisa la validacion
     const inputValuesArray = Object.values(inputObject);
     const filteredArray = inputValuesArray.filter((input) => input !== "");
+
     if (filteredArray.length === 0) {
       setInputErrorNombre(true);
       setInputErrorApellido(true);
@@ -114,6 +113,7 @@ const Form = () => {
       setInputErrorPassword(true);
       setInputErrorConfirmPassword(false);
       console.log("pass");
+      !validatePassword(inputObject.password);
       return;
     } else if (
       inputObject.confirmPassword?.length === 0 ||
@@ -124,7 +124,7 @@ const Form = () => {
       setInputErrorEmail(false);
       setInputErrorPassword(false);
       setInputErrorConfirmPassword(true);
-
+      !validatePassword(inputObject.confirmPassword);
       console.log("pass");
 
       return;
@@ -141,7 +141,9 @@ const Form = () => {
       setInputErrorEmail(false);
       setInputErrorPassword(false);
       setInputErrorConfirmPassword(false);
+      !validatePassword(inputObject.confirmPassword);
     }
+    createUser(inputObject);
   };
 
   const changeHandler = (value, key) => {
@@ -236,7 +238,6 @@ const Form = () => {
 
             <Select
               className="selector"
-              options={options}
               value={inputObject.selector || ""} //cambiar el nombre de el estado value
               onChange={(e) => changeHandler(e.target.value, "selector")}
             >
@@ -272,6 +273,10 @@ const Form = () => {
           <div className="submit">
             <Button onClick={handleSubmit}>Enviar</Button>
           </div>
+
+          <Link to="/">
+            <h3 style={{ textAllign: "center" }}>Regresar</h3>
+          </Link>
         </div>
       </section>
     </>

@@ -5,15 +5,20 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { Link, useNavigate } from "react-router-dom";
+//import PropTypes from "prop-types";
 import loginService from "../../Services/authentication";
 import validateEmail from "../../utils/validateEmail";
 import validatePassword from "../../utils/passwordFormat";
+//import { UserContext } from "../../utils/UserContext";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
 
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
+
+  // eslint-disable-next-line no-unused-vars
+  const [loginSucces, setLoginSucces] = useState(false);
 
   let navigate = useNavigate();
 
@@ -70,21 +75,14 @@ const Login = () => {
       return;
     }
 
-    const confirmPasswordValidator = validatePassword(
-      loginInfo.confirmPassword
-    );
-    if (!confirmPasswordValidator) {
-      setErrorPassword(true);
-      console.log("password con formato incorrecto", loginInfo.confirmPassword);
-      return;
-    }
-
     //
 
     loginService(loginInfo)
       .then((isValid) => {
         console.log("login info data", isValid);
         if (isValid === true) {
+          setLoginSucces(true);
+
           return navigate("/home");
         } else {
           alert("Usuario o contraseña incorrectos");
@@ -95,7 +93,6 @@ const Login = () => {
         console.log("login info error", err);
       });
   };
-
   useEffect(() => {}, [loginInfo]);
 
   const styleRef = useRef(null);

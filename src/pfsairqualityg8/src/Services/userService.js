@@ -1,17 +1,22 @@
-import { useState } from "react";
+// eslint-disable-next-line no-undef
+const axios = require("axios").default;
 
-const [userInfo, setUserInfo] = useState({});
+/*export const userLogin = axios.post(
+  "https://api-220201.herokuapp.com/api/v1/auth/login",
+  {
+    email: "",
+    password: "",
+  }
+  );*/
 
-const users = [{}];
-
-const userService = () => {
-  const createUser = (user) => {
-    user.id = users.length + 1;
-    setUserInfo(users.push(user));
-    return user;
-  };
-  createUser(userInfo);
-  console.log(userInfo);
+export const createUser = (param) => {
+  console.log("param", param);
+  axios
+    .post("https://api-220201.herokuapp.com/users", param)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
-
-export default userService;

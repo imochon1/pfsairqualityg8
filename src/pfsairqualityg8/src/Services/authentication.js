@@ -1,8 +1,14 @@
+//const axios = require("axios").default;
+
 //crear servicio de verificacion, post y authenticati
 
 ////Authenticator.loginSErvice(logininfo.mail y logininfo.password)
 
 const loginService = (userInfo) => {
+  //sustituir paths por url https://api-220201.herokuapp.com/ https://api-220201.herokuapp.com/users/
+
+  // const URL = "https://breath-api.herokuapp.com/api/v1/auth/login";
+
   const userArray = [
     {
       email: "mail@mail.com",
