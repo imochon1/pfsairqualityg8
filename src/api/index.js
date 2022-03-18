@@ -15,6 +15,7 @@ mongoose
 
 const PORT = process.env.PORT || 5000; // https://help.heroku.com/P1AVPANS/why-is-my-node-js-app-crashing-with-an-r10-error
 const app = express();
+app.use(express.json());
 const server = require('http').Server(app);
 const PlantRouter = require("./routes/PlantRouter");
 const UserRouter = require("./routes/UserRouter");
