@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const storage = require("../utils/storage");
-
+const bcrypt = require("bcrypt");
+const SALT_ROUNDS = 10;
 module.exports = {
   // key : value
   findAll: async (req, res) => {
@@ -18,11 +19,16 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      // console.log("process.env => ",process.env.NODE_ENV)
-      // console.log("req.body = ", req.body)
-      // console.log("User = ", User)
+      console.log("process.env => ",process.env.NODE_ENV)
+      console.log("req.body = ", req.body)
+      console.log("User = ", User)
+      const salt = await bcrypt.genSalt(SALT_ROUNDS)
+      const {password} = req.body
+      const passwordHash = await bcrypt.hash(password, salt);
+      console.log(passwordHash)
+      req.body['password'] = passwordHash
       const newUser = await User.create(req.body);
-      // console.log("newUser", newUser)
+      console.log("newUser con hash", newUser)
       res.status(201).json({
         message: "User created sucessfully",
         user: newUser,
@@ -59,6 +65,7 @@ module.exports = {
 
   findOneByEmail: async (req, res) => {
     const { email } = req.params;
+    console.log("req.params =", req.params)
 
     try {
       const userFound = await User.findOne({ email: email });

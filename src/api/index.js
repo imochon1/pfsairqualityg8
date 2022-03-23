@@ -19,6 +19,7 @@ app.use(express.json());
 const server = require('http').Server(app);
 const PlantRouter = require("./routes/PlantRouter");
 const UserRouter = require("./routes/UserRouter");
+const AuthRouter = require("./routes/AuthRouter");
  
 app.use(cors());
 app.use('/health', (req, res) => {
@@ -33,6 +34,8 @@ app.use('/health', (req, res) => {
 app.get("/", (__, res) => {
   res.json({ message: "Backend APi-NOSQL pfsairqualityg8 running " });
 });
+
+app.use("/auth", AuthRouter);
 
 app.use("/plants", PlantRouter);
 

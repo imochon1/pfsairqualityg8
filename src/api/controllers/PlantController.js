@@ -21,7 +21,7 @@ module.exports = {
 
   Create: async (req, res) => {
     try {
-      console.log("req ===> ",req)
+      // console.log("req ===> ",req)
       console.log("req.body create plants= ", req.body)
       return res.json({})
     } catch (error) {
