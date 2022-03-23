@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const privateKey = process.env.PRIVATE_KEY;
+const expTime = process.env.EXP_TIME;
 
 module.exports = {
 
@@ -35,10 +36,9 @@ module.exports = {
                         }
                         // exp: 120900121 EPOCH
                     },
-                    "HOLA",
-                    // privateKey,
+                    privateKey,
                     {
-                        expiresIn:  '1h'
+                        expiresIn: expTime
                     }
                 );
                 console.log("token = ",token)
