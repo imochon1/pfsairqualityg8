@@ -3,7 +3,17 @@ import { Link } from "react-router-dom";
 import "./header.css";
 import PersonIcon from "@mui/icons-material/Person";
 
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+  const navigate = useNavigate();
+  // //localStorage.removeItem("userStorage");
+
+  const logout = () => {
+    localStorage.removeItem("userStorage");
+    navigate("/");
+  };
+
   return (
     <div className="menu-header">
       <div className="menu-items">
@@ -16,6 +26,9 @@ const Header = () => {
         <div className="icon-wrapper">
           <PersonIcon className="icon" />
         </div>
+        <button className="logout" onClick={logout}>
+          Logout
+        </button>
       </div>
     </div>
   );

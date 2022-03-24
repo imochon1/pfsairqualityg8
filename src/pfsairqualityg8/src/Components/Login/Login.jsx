@@ -6,17 +6,23 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { Link, useNavigate } from "react-router-dom";
 
-import loginService from "../../Services/authentication";
 import validateEmail from "../../utils/validateEmail";
-import validatePassword from "../../utils/passwordFormat";
+//import validatePassword from "../../utils/passwordFormat";
 import { userLogin } from "../../Services/userService";
+import { GoogleLogin } from "react-google-login";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
 
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
-
+  // eslint-disable-next-line no-unused-vars
+  const [userStorage, setUserStorage] = useState(
+    localStorage.getItem("userStorage")
+      ? JSON.stringify(localStorage.getItem("userStorage"))
+      : null
+  );
+  //Tambien hay que realizar un storage de nuestro usuarioo/backendd
   // eslint-disable-next-line no-unused-vars
   const [loginSucces, setLoginSucces] = useState(false);
 
@@ -65,7 +71,7 @@ const Login = () => {
       return;
     }
 
-    const passwordFormatValidator = validatePassword(loginInfo.password);
+    /*const passwordFormatValidator = validatePassword(loginInfo.password);
     if (!passwordFormatValidator) {
       setErrorPassword(true);
       console.log(
@@ -73,20 +79,18 @@ const Login = () => {
         loginInfo.password
       );
       return;
-    }
-
+    }*/
     //
 
-    loginService(loginInfo)
+    userLogin(loginInfo)
       .then((isValid) => {
         console.log("login info data", isValid);
         if (isValid === true) {
           setLoginSucces(true);
-
           return navigate("/home");
         } else {
           alert("Usuario o contraseña incorrectos");
-          return navigate("/login");
+          return navigate("/");
         }
       })
       .catch((err) => {
@@ -95,6 +99,12 @@ const Login = () => {
     userLogin(loginInfo);
   };
   useEffect(() => {}, [loginInfo]);
+  useEffect(() => {
+    if (localStorage.getItem("userStorage")) {
+      return navigate("/home");
+    } //getItem removeItem, setItem
+    console.log("primera ves");
+  }, []);
 
   const styleRef = useRef(null);
 
@@ -111,6 +121,26 @@ const Login = () => {
     styleRef.current.borderColor = "transparent";
     styleRef.current.backgroundColor = "transparent";
     styleRef.current.color = "white";
+  };
+
+  const succesHandler = (response) => {
+    if (response) {
+      localStorage.setItem(
+        "userStorage",
+        JSON.stringify({
+          name: "isaac",
+          email: "",
+          image: "",
+        })
+      );
+    }
+
+    console.log("Exitoso", response);
+    return navigate("/home");
+  };
+
+  const failureHandler = (error) => {
+    console.log("falido", error);
   };
 
   return (
@@ -194,6 +224,17 @@ const Login = () => {
             </Link>
           </div>
         </div>
+        {userStorage ? (
+          navigate("/home")
+        ) : (
+          <GoogleLogin
+            clientId="812397687165-lp1mni9pliq4hm9sgb9aui46chud5bjk.apps.googleusercontent.com"
+            buttonText="Login With Google"
+            onSuccess={succesHandler}
+            onFailure={failureHandler}
+            cookiePolicy={"single_host_origin"}
+          />
+        )}
       </div>
     </>
   );

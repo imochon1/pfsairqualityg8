@@ -10,7 +10,7 @@ import validateEmail from "../../utils/validateEmail";
 
 import Alert from "@mui/material/Alert";
 import { Link } from "react-router-dom";
-import validatePassword from "../../utils/passwordFormat";
+//import validatePassword from "../../utils/passwordFormat";
 import { createUser } from "../../Services/userService";
 
 //  rutas,estilos,arreglar alerts,validaciones mail. fotos para header  //
@@ -113,7 +113,7 @@ const Form = () => {
       setInputErrorPassword(true);
       setInputErrorConfirmPassword(false);
       console.log("pass");
-      !validatePassword(inputObject.password);
+      //!validatePassword(inputObject.password);
       return;
     } else if (
       inputObject.confirmPassword?.length === 0 ||
@@ -124,7 +124,7 @@ const Form = () => {
       setInputErrorEmail(false);
       setInputErrorPassword(false);
       setInputErrorConfirmPassword(true);
-      !validatePassword(inputObject.confirmPassword);
+      //!validatePassword(inputObject.confirmPassword);
       console.log("pass");
 
       return;
@@ -141,7 +141,7 @@ const Form = () => {
       setInputErrorEmail(false);
       setInputErrorPassword(false);
       setInputErrorConfirmPassword(false);
-      !validatePassword(inputObject.confirmPassword);
+      //   !validatePassword(inputObject.confirmPassword);
     }
     createUser(inputObject);
   };
