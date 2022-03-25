@@ -21,9 +21,12 @@ module.exports = {
 
   Create: async (req, res) => {
     try {
-      // console.log("req ===> ",req)
-      console.log("req.body create plants= ", req.body)
-      return res.json({})
+      const newPlant = await Plant.create(req.body);
+      // console.log("Plant create", newPlant)
+      res.status(201).json({
+        message: "Plant created sucessfully",
+        user: newPlant,
+      });
     } catch (error) {
       res.status(400).json({
         message: "Error recover plants",
