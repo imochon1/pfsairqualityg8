@@ -1,3 +1,16 @@
-import { createContext } from "react";
+import React, { createContext, useState } from "react";
 
-export const UserContext = createContext({});
+const UserLoggedContext = createContext();
+
+const UserProvider = (props) => {
+  const [globalUser, setGlobalUser] = useState({});
+
+  return (
+    <UserLoggedContext.Provider
+      value={{ globalUser, setGlobalUser }}
+      {...props}
+    />
+  );
+};
+
+export { UserLoggedContext, UserProvider };

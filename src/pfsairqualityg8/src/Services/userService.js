@@ -1,20 +1,25 @@
+import { decodedJWT } from "../utils/jwtDecoder";
 // eslint-disable-next-line no-undef
 const axios = require("axios").default;
 
 export const userLogin = (paramsLogin) => {
   console.log(paramsLogin);
-  axios
-    .post("https://api-220201.herokuapp.com/auth/", paramsLogin)
-    .then((response) => {
-      console.log("response Login", response);
-      if (response.status === 200) {
-        console.log("response Login", response);
-        window.location.href = "/home";
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  return new Promise((resolve, reject) => {
+    axios
+      .post("https://api-220201.herokuapp.com/auth", paramsLogin)
+      .then((response) => {
+        const { data } = response;
+        const { token } = data;
+        const payload = decodedJWT(token);
+        console.log("payload", payload);
+
+        resolve(payload);
+      })
+      .catch(({ response }) => {
+        console.log("error", response.status);
+        reject(response);
+      });
+  });
 };
 
 export const createUser = (param) => {

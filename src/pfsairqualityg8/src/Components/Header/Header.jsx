@@ -1,16 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import "./header.css";
+import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
-
 import { useNavigate } from "react-router-dom";
+import { UserLoggedContext } from "../../utils/UserContext";
 
 const Header = () => {
   const navigate = useNavigate();
   // //localStorage.removeItem("userStorage");
+  // eslint-disable-next-line no-unused-vars
+  const { globalUser, setGlobalUser } = useContext(UserLoggedContext);
 
   const logout = () => {
     localStorage.removeItem("userStorage");
+    setGlobalUser({});
     navigate("/");
   };
 
@@ -26,6 +29,7 @@ const Header = () => {
         <div className="icon-wrapper">
           <PersonIcon className="icon" />
         </div>
+        <h3>Hola {globalUser.name}</h3>
         <button className="logout" onClick={logout}>
           Logout
         </button>

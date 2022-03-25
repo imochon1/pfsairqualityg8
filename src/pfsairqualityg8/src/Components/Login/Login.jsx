@@ -1,21 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./Login.css";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { GoogleLogin } from "react-google-login";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import { Link, useNavigate } from "react-router-dom";
-
+import "./Login.css";
 import validateEmail from "../../utils/validateEmail";
 //import validatePassword from "../../utils/passwordFormat";
 import { userLogin } from "../../Services/userService";
-import { GoogleLogin } from "react-google-login";
+
+// eslint-disable-next-line no-unused-vars
+import { UserLoggedContext } from "../../utils/UserContext";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({});
 
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const { globalUser, setGlobalUser } = useContext(UserLoggedContext);
+
   // eslint-disable-next-line no-unused-vars
   const [userStorage, setUserStorage] = useState(
     localStorage.getItem("userStorage")
@@ -38,26 +43,21 @@ const Login = () => {
   const submit = (e) => {
     e.preventDefault();
 
-    console.log("HEY ", loginInfo);
-
     if (Object.keys(loginInfo).length == 0) {
       setErrorEmail(true);
       setErrorPassword(true);
 
-      console.log(loginInfo);
       return; //hasta aqui funciona
     }
 
     if (loginInfo.email?.length === 0) {
-      console.log("email vacio");
       setErrorEmail(true);
       setErrorPassword(false);
 
       return;
     }
-    console.log(loginInfo.password === undefined);
+
     if (loginInfo.password == undefined || loginInfo.password?.length == 0) {
-      console.log("Contraseña Vacia");
       setErrorEmail(false);
       setErrorPassword(true);
       return;
@@ -67,7 +67,7 @@ const Login = () => {
     const emailValidation = validateEmail(loginInfo.email);
     if (!emailValidation) {
       setErrorEmail(true);
-      console.log("email con formato incorrecto", loginInfo.email);
+
       return;
     }
 
@@ -81,12 +81,17 @@ const Login = () => {
       return;
     }*/
     //
-
+    console.log("loginInfo", loginInfo);
     userLogin(loginInfo)
-      .then((isValid) => {
-        console.log("login info data", isValid);
-        if (isValid === true) {
+      .then((responseLogin) => {
+        console.log("login info data", responseLogin);
+        if (responseLogin.data) {
           setLoginSucces(true);
+          setGlobalUser({
+            name: responseLogin.data.completeName,
+            email: responseLogin.data.email,
+            rol: responseLogin.data.rol,
+          });
           return navigate("/home");
         } else {
           alert("Usuario o contraseña incorrectos");
@@ -103,14 +108,14 @@ const Login = () => {
     if (localStorage.getItem("userStorage")) {
       return navigate("/home");
     } //getItem removeItem, setItem
-    console.log("primera ves");
+    console.log("Montado por Primera Vez");
   }, []);
 
   const styleRef = useRef(null);
 
   const hoverHandler = (e) => {
     e.preventDefault();
-    console.log(styleRef.current);
+
     styleRef.current.borderColor = "white";
     styleRef.current.backgroundColor = "white";
     styleRef.current.color = "black";
@@ -135,7 +140,6 @@ const Login = () => {
       );
     }
 
-    console.log("Exitoso", response);
     return navigate("/home");
   };
 
