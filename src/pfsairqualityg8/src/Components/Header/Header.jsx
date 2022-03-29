@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import { UserLoggedContext } from "../../utils/UserContext";
+import ResponsiveAppBar from "../NavBar/NavBar";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ const Header = () => {
           Logout
         </button>
       </div>
+      <br />
+      <ResponsiveAppBar />
     </div>
   );
 };
