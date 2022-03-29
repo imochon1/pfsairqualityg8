@@ -20,6 +20,7 @@ const server = require('http').Server(app);
 const PlantRouter = require("./routes/PlantRouter");
 const UserRouter = require("./routes/UserRouter");
 const AuthRouter = require("./routes/AuthRouter");
+const StatisticRouter = require("./routes/StatisticRouter");
  
 app.use(cors());
 app.use('/health', (req, res) => {
@@ -40,6 +41,8 @@ app.use("/auth", AuthRouter);
 app.use("/plants", PlantRouter);
 
 app.use("/users", UserRouter);
+
+app.use("/statistics", StatisticRouter);
 
 server.listen(PORT, (error) => {
   if (error) {
