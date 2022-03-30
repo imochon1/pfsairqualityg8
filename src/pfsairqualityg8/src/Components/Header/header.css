@@ -4,8 +4,32 @@
 }
 
 .menu-header {
-  position: relative;
+  width: 98.5vw;
+  height: 30vh;
+  background-image: url("../Header/green-park-view.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 2em;
+  filter: hue-rotate(180deg);
+}
+
+.menu-items {
+  display: flex;
+  justify-content: space-between;
   width: 100vw;
-  height: 5vh;
-  background-color: rgb(4, 48, 243);
+  height: 6vh;
+}
+
+h3 {
+  margin-left: 1em;
+  font-size: 1.5em;
+  color: black;
+  text-decoration: none;
+}
+
+.icon {
+  margin-top: 0.5em;
+  margin-left: 1em;
+  font-size: 1.2em;
+  color: white;
 }

@@ -2,13 +2,48 @@
   margin: 0 auto;
   padding: 0%;
 }
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./air-quality.jpg") !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+}
 
 .login-wrapper {
+  margin-top: 2em;
   text-align: center;
-  border: solid 1px black;
+  border: solid 1px transparent;
   height: 66vh;
   width: 30vw;
+  background-color: transparent;
+  filter: opacity(0.7);
 }
+
 .login-component {
   margin-top: 1em;
+}
+
+.registro {
+  margin-top: 1em;
+}
+.banner-info {
+  text-align: center;
+  width: fit-content;
+  border: solid 1px transparent;
+  font-family: monospace;
+}
+@keyframes borderAnimation {
+  0% {
+    border: solid 1px transparent;
+  }
+  50% {
+    border: solid 1px #fff;
+  }
+  100% {
+    border: solid 1px transparent;
+  }
 }

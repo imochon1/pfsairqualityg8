@@ -2,12 +2,26 @@
   margin: 0 auto;
   padding: 0%;
 }
+/*{
+  background-size: 150px;
+  background-repeat: space;
+  background-image:
+    url(/images/cowboy.svg);
+}
+*/
 
 .home-component {
-  background-image: url("./blue-sky.jpg");
+  background: url("./blue-sky.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  /*background-image: url("./blue-sky.jpg");
   background-size: cover !important ;
-  width: 100vw;
-  height: 95vh;
+  background-repeat: no-repeat !important ;
+  width: 98.5vw;
+  min-height: 298vh;*/
 }
 
 .floater {

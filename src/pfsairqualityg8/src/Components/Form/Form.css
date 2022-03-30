@@ -4,30 +4,77 @@
 }
 
 .form-wrapper {
-  filter: opacity(0.9);
-  margin-top: 2em;
-  margin-left: 20vw;
+  filter: opacity(0.7);
+  background-color: white;
+
+  margin-left: 33vw;
   margin-right: 5vw;
-  width: 60vw;
+  width: 35vw;
   height: 80vh;
+
+  border: 1px solid white;
+}
+
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 2px solid black;
+}
+
+.body {
+  background: url("../Home/blue-sky.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
 }
 
 .form-item {
-  margin-top: 4em;
+  text-align: center;
+  margin-top: 2em;
   width: 13vw;
   height: 9vh;
-  background: rgb(74, 166, 252) 100%;
+  background: white;
+}
+
+.top-bar {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h4 {
+  font-weight: lighter;
 }
 
 .submit {
-  margin-left: 27em;
+  margin-top: 4em;
+  text-align: center;
+  height: 2.5em;
+  width: 7em;
+  animation: colors 2s infinite ease-in-out;
+  color: white;
 }
 
 .selector {
   margin-top: 4em;
   height: 9vh;
   width: 13vw;
+}
+
+@keyframes colors {
+  0% {
+    background-color: white;
+    color: black;
+  }
+  50% {
+    background-color: aqua;
+    color: white;
+  }
+  100% {
+    background-color: white;
+    color: black;
+  }
 }
