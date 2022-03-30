@@ -19,11 +19,11 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      console.log("process.env => ",process.env.NODE_ENV)
+      console.log("process.env => ", process.env.NODE_ENV)
       console.log("req.body = ", req.body)
       console.log("User = ", User)
       const salt = await bcrypt.genSalt(SALT_ROUNDS)
-      const {password} = req.body
+      const { password } = req.body
       const passwordHash = await bcrypt.hash(password, salt);
       console.log(passwordHash)
       req.body['password'] = passwordHash
@@ -88,12 +88,13 @@ module.exports = {
 
   updateOneById: async (req, res) => {
     const id = req.params.idUser;
-
-    // if (req.file) {
-    //   const url = await storage(req.file);
-    //   console.log("url file", url);
-    //   req.body.profile_picture = url;
-    // }
+    const salt = await bcrypt.genSalt(SALT_ROUNDS)
+    const { password } = req.body
+    if (password) {
+      const passwordHash = await bcrypt.hash(password, salt);
+      console.log(passwordHash)
+      req.body['password'] = passwordHash
+    }
 
     try {
       const userUpdated = await User.findByIdAndUpdate(id, req.body, {
