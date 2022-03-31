@@ -12,7 +12,6 @@ export const userLogin = (paramsLogin) => {
         const { token } = data;
         const payload = decodedJWT(token);
         console.log("payload", payload);
-
         resolve(payload);
       })
       .catch(({ response }) => {
@@ -36,4 +35,29 @@ export const createUser = (param) => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const patchUser = (param) => {
+  const { id, name, last_name } = param;
+  const dataToSendArray = [name, last_name];
+  console.log("paramUSER", param);
+  axios
+    .patch(`https://api-220201.herokuapp.com/users/${id}`, dataToSendArray)
+
+    .then((response) => {
+      console.log("PATCH RESPONSE", response);
+      if (response.status === 200) {
+        alert("Usuario actualizado");
+        console.log("response", response);
+        window.location.href = "/profile";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const userLogout = () => {
+  localStorage.removeItem("userStorage");
+  return true;
 };

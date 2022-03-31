@@ -7,10 +7,11 @@ const CardHolder = () => {
 
   const getData = () => {
     axios
-      .get("https://rickandmortyapi.com/api/character/1,183,5")
+      .get("https://api-220201.herokuapp.com/plants")
       .then((response) => {
         console.log("response data", response.data);
-        setApiData(response.data);
+        const { data } = response;
+        setApiData(data.plants);
       })
       .catch((error) => {
         console.log("error", error);
@@ -27,12 +28,12 @@ const CardHolder = () => {
     (function () {
       console.log("Hola");
     })();
-    getData({});
+    getData([]);
   }, []);
 
   return (
     <section className="cards">
-      {apiData.map((element, index) => {
+      {apiData.map((plants, index) => {
         return (
           <>
             <div className="card-wrapper" key={index}>
@@ -41,13 +42,13 @@ const CardHolder = () => {
                   <img
                     key={index}
                     className="card-image"
-                    src={element.image}
-                    alt="Rick and Morty"
+                    src={plants.image}
+                    alt="Plants"
                   />
                 </div>
                 <div className="card-text" key={index}>
                   <br />
-                  {element.name}
+                  {plants.name}
                 </div>
               </div>
             </div>

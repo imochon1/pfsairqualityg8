@@ -13,9 +13,15 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { UserLoggedContext } from "../../utils/UserContext";
+import { Link, useNavigate } from "react-router-dom";
+import { userLogout } from "../../Services/userService";
 
-const pages = ["Calidad De Aire", "Plantas", "Testimonial"];
-const settings = ["Perfil", "Cuenta", "Logout"];
+const pages = ["Calidad De Aire", "Plantas", "Testimonial", "Usuarios"];
+const settings = [
+  { name: "Perfil", path: "/profile" },
+  { name: "Cuenta", path: "/home" },
+  { name: "Logout", path: "/" },
+];
 
 const ResponsiveAppBar = () => {
   // eslint-disable-next-line no-unused-vars
@@ -24,6 +30,7 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -39,20 +46,26 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const logoutHandler = (elementoDeLogout) => {
+    if (elementoDeLogout === "Logout") {
+      navigate("/");
+      setGlobalUser({});
+      userLogout();
+    }
+  };
+
   return (
     <AppBar position="static" style={{ backgroundColor: "black" }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="100vw">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            {globalUser.name}
-          </Typography>
+            sx={{ mr: 2, display: { xs: "flex", md: "flex" }, color: "white" }}
+          ></Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -61,7 +74,7 @@ const ResponsiveAppBar = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <MenuIcon style={{ color: "white" }} />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -78,7 +91,7 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: "block" },
               }}
             >
               {pages.map((page) => (
@@ -88,27 +101,42 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
+
           <Typography
-            style={{ color: "black" }}
+            style={{ color: "white" }}
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            sx={{ flexGrow: 1, display: { xs: "flex" } }}
+          ></Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+            {globalUser.rol === "ADMIN"
+              ? pages.map((page) => {
+                  return (
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, display: "flex" }}
+                    >
+                      {page}
+                    </Button>
+                  );
+                })
+              : pages.splice(3, 1).map((page) => {
+                  return (
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page}
+                    </Button>
+                  );
+                })}
           </Box>
-
+          <Link to="/profile">
+            <h2 style={{ color: "white" }}>Perfil</h2>
+          </Link>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -131,10 +159,16 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              {settings.map((elemento, index) => (
+                <Link
+                  to={elemento.path}
+                  key={index}
+                  onClick={() => logoutHandler(elemento.name)}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{elemento.name}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -144,3 +178,4 @@ const ResponsiveAppBar = () => {
   );
 };
 export default ResponsiveAppBar;
+//si el settings array=[0] me mande al link de perfil, en la posicion[1]me mande a la cuenta y en la posicion[2] me mande al logout en el map

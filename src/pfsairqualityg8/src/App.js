@@ -7,6 +7,7 @@ import "./App.css";
 import Form from "./Components/Form/Form";
 import HomeComponent from "./Components/Home/HomeComponent";
 import Login from "./Components/Login/Login";
+import UserComponent from "./Components/UserComponent/UserComponent";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./utils/UserContext";
 import ProtectedRoute from "./utils/PrivateRoute";
@@ -31,6 +32,14 @@ const App = () => {
               element={
                 <ProtectedRoute user>
                   <HomeComponent />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute user>
+                  <UserComponent />
                 </ProtectedRoute>
               }
             />

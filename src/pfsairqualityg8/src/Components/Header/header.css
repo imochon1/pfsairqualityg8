@@ -6,9 +6,7 @@
 .menu-header {
   width: 98.5vw;
   height: 30vh;
-  background-image: url("../Header/green-park-view.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+
   margin-bottom: 2em;
   filter: hue-rotate(180deg);
 }

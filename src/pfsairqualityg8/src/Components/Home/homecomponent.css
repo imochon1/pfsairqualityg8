@@ -22,6 +22,7 @@
   background-repeat: no-repeat !important ;
   width: 98.5vw;
   min-height: 298vh;*/
+  z-index: -1;
 }
 
 .floater {

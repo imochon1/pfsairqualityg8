@@ -85,12 +85,16 @@ const Login = () => {
     userLogin(loginInfo)
       .then((responseLogin) => {
         console.log("login info data", responseLogin);
+        console.log("login info data con _", responseLogin._id);
+        console.log("login info data", responseLogin.id);
         if (responseLogin.data) {
           setLoginSucces(true);
           setGlobalUser({
-            name: responseLogin.data.completeName,
+            name: responseLogin.data.name,
+            last_name: responseLogin.last_name,
             email: responseLogin.data.email,
             rol: responseLogin.data.rol,
+            id: responseLogin.data._id,
           });
           return navigate("/home");
         } else {
@@ -154,91 +158,99 @@ const Login = () => {
         <section className="banner-info">
           <h2>Mejora Tu Aire. Mejora Tu Vida</h2>
         </section>
-        <br />
-        <br />
-        <div
-          className="login-wrapper"
-          ref={styleRef}
-          onMouseEnter={(e) => hoverHandler(e)}
-          onMouseOut={(e) => leaveHover(e)}
-        >
-          <div className="login-component">
-            <h1>Login</h1>
+        <div className="registro">
+          <Link
+            to="/form"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            Eres Nuevo/a ? Registrate !
+          </Link>
+          <br />
+          <br />
+          <div
+            className="login-wrapper"
+            ref={styleRef}
+            onMouseEnter={(e) => hoverHandler(e)}
+            onMouseOut={(e) => leaveHover(e)}
+          >
+            <div className="login-component">
+              <h1>Login</h1>
 
-            <Box
-              component="form"
-              sx={{
-                "& .MuiTextField-root": { m: 1, width: "25ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                error={errorEmail}
-                helperText={errorEmail ? "Ingresa tu Mail" : ""}
-                id="filled-basic"
-                label="email"
-                variant="filled"
-                style={{ marginTop: "2em" }}
-                key="email"
-                onChange={(e) => loginHandler("email", e.target.value)}
-              />
-              {errorEmail ? (
-                <Alert severity="error">
-                  <strong>Error:</strong> Ingresa tu email
-                </Alert>
-              ) : (
-                <></>
-              )}
-              <div>
+              <Box
+                component="form"
+                sx={{
+                  "& .MuiTextField-root": { m: 1, width: "25ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
                 <TextField
-                  error={errorPassword}
-                  helperText={errorPassword ? "Contraseña incorrecta" : ""}
+                  error={errorEmail}
+                  helperText={errorEmail ? "Ingresa tu Mail" : ""}
+                  id="filled-basic"
+                  label="email"
                   variant="filled"
-                  type="password"
-                  required
-                  id="outlined-required"
-                  label="Password"
-                  key="Password"
                   style={{ marginTop: "2em" }}
-                  onChange={(e) => loginHandler("password", e.target.value)}
+                  key="email"
+                  onChange={(e) => loginHandler("email", e.target.value)}
                 />
-                {errorPassword ? (
+                {errorEmail ? (
                   <Alert severity="error">
-                    <strong>Error:</strong> Ingresa tu Password
+                    <strong>Error:</strong> Ingresa tu email
                   </Alert>
                 ) : (
                   <></>
                 )}
-              </div>
-            </Box>
-          </div>
+                <div>
+                  <TextField
+                    error={errorPassword}
+                    helperText={errorPassword ? "Contraseña incorrecta" : ""}
+                    variant="filled"
+                    type="password"
+                    required
+                    id="outlined-required"
+                    label="Password"
+                    key="Password"
+                    style={{ marginTop: "2em" }}
+                    onChange={(e) => loginHandler("password", e.target.value)}
+                  />
+                  {errorPassword ? (
+                    <Alert severity="error">
+                      <strong>Error:</strong> Ingresa tu Password
+                    </Alert>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </Box>
+            </div>
 
-          <Button
-            variant="contained"
-            onClick={(e) => submit(e)}
-            style={{ marginTop: "4em" }}
-          >
-            Ingresar
-          </Button>
-
-          <div className="registro">
-            <Link to="/form" style={{ textDecoration: "none", color: "white" }}>
-              Registrate
-            </Link>
+            <Button
+              variant="contained"
+              onClick={(e) => submit(e)}
+              style={{ marginTop: "4em" }}
+            >
+              Ingresar
+            </Button>
+            <br />
+            {userStorage ? (
+              navigate("/home")
+            ) : (
+              <GoogleLogin
+                className="google-login"
+                clientId="812397687165-lp1mni9pliq4hm9sgb9aui46chud5bjk.apps.googleusercontent.com"
+                buttonText="Login With Google"
+                onSuccess={succesHandler}
+                onFailure={failureHandler}
+                cookiePolicy={"single_host_origin"}
+              />
+            )}
           </div>
         </div>
-        {userStorage ? (
-          navigate("/home")
-        ) : (
-          <GoogleLogin
-            clientId="812397687165-lp1mni9pliq4hm9sgb9aui46chud5bjk.apps.googleusercontent.com"
-            buttonText="Login With Google"
-            onSuccess={succesHandler}
-            onFailure={failureHandler}
-            cookiePolicy={"single_host_origin"}
-          />
-        )}
       </div>
     </>
   );
