@@ -36,7 +36,6 @@ const UserComponent = () => {
     const user = {
       name: nombre,
       last_name: lastName,
-
       id: _id,
     };
 
