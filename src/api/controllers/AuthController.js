@@ -31,7 +31,10 @@ module.exports = {
                     {
                         data: {
                             email,
+                            name,
+                            last_name,
                             completeName: `${name} ${last_name}`,
+
                             rol: role //"Admin",
                         }
                         // exp: 120900121 EPOCH
